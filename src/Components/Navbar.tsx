@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
     <header className="sticky top-0 z-50 w-full bg-black transition duration-300 ease-in-out">
       <nav className="relative max-w-[85rem] w-full mx-auto md:flex md:items-center md:justify-between md:gap-3 py-2 px-4 sm:px-6 lg:px-8 backdrop-blur-md bg-opacity-50">
         <div className="flex justify-between items-center gap-x-1">
-          <a className="flex-none font-semibold text-xl text-white focus:outline-none focus:opacity-80" href="#home" aria-label="Brand">LifeLineDonors</a>
+          <a className="flex-none font-semibold text-xl text-white focus:outline-none focus:opacity-80" href="#home" aria-label="Brand">Care Connect</a>
 
           {/* Collapse Button */}
           <button type="button" className="hs-collapse-toggle md:hidden relative size-9 flex justify-center items-center font-medium text-[12px] rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" id="hs-header-base-collapse" aria-expanded="false" aria-controls="hs-header-base" aria-label="Toggle navigation" data-hs-collapse="#hs-header-base">

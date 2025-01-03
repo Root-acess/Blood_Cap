@@ -19,13 +19,30 @@ import PrivateRoute from './Components/PrivateRoute';
 import { AuthProvider } from './AuthContext';
 import Registration from './Dashboard/Registration';
 import BloodDonationEvents from './Dashboard/Events';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import ScheduleCheckup from './Dashboard/ScheduleCheckup';
+import ResultPage from './Dashboard/ResultPage';
+import RequestServices from './Dashboard/RequestService';
+import Consultation from './Dashboard/consultation';
+import TherapySessions from './Dashboard/MentalHealthSupport/TherapySessions';
+import CounselingPage from './Dashboard/MentalHealthSupport/CounselingPage';
+import StressManagementPage from './Dashboard/MentalHealthSupport/StressManagementPage';
+import PrenatalCarePage from './Dashboard/WomwnHealth/PrenatalCarePage';
+import MenopauseSupportPage from './Dashboard/WomwnHealth/MenopauseSupportPage';
+import GynecologyPage from './Dashboard/WomwnHealth/GynecologyPage';
+import DietPlansPage from './Dashboard/Nutrition/DietPlansPage';
+import NutritionGuidancePage from './Dashboard/Nutrition/NutritionGuidancePage';
+import SupplementsPage from './Dashboard/Nutrition/SupplementsPage';
+
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
   const hideNavBarRoutes = [
     "/dashboard", "/dashboard/overview", "/dashboard/donate", 
     "/dashboard/requests", "/dashboard/donors", "/dashboard/profile","/dashboard/events", 
-    "/signin", "/signup"
+    "/signin", "/signup","/dashboard/schedule-checkup", "/dashboard/view-results" ,"/dashboard/request-services","/dashboard/consultation",
+    "/dashboard/therapy-sessions","/dashboard/counseling","/dashboard/stress-management","/dashboard/prenatal-care","/dashboard/menopause-support",
+    "/dashboard/gynecology","/dashboard/diet-plans", "/dashboard/nutrition-guidance","/dashboard/supplements"
   ];
 
   const shouldHideNavbar = hideNavBarRoutes.some(route => location.pathname.startsWith(route));
@@ -103,6 +120,19 @@ const App: React.FC = () => {
                     <Route path="donors" element={<DonorList />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="events" element={<BloodDonationEvents />} />
+                    <Route path="schedule-checkup" element={<ScheduleCheckup />} />
+                    <Route path="view-results" element={<ResultPage />} />
+                    <Route path="request-services" element={<RequestServices />} />
+                    <Route path="consultation" element={<Consultation />} />
+                    <Route path="therapy-sessions" element={<TherapySessions />} />
+                    <Route path="counseling" element={<CounselingPage />} />
+                    <Route path="stress-management" element={<StressManagementPage />} />
+                    <Route path="prenatal-care" element={<PrenatalCarePage />} />
+                    <Route path="menopause-support" element={<MenopauseSupportPage />} />
+                    <Route path="gynecology" element={<GynecologyPage />} />
+                    <Route path="diet-plans" element={<DietPlansPage />} />
+                    <Route path="nutrition-guidance" element={<NutritionGuidancePage />} />
+                    <Route path="supplements" element={<SupplementsPage />} />
                   </Route>
                 </Route>
               </Routes>
