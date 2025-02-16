@@ -29,10 +29,14 @@ import StressManagementPage from './Dashboard/MentalHealthSupport/StressManageme
 import PrenatalCarePage from './Dashboard/WomwnHealth/PrenatalCarePage';
 import MenopauseSupportPage from './Dashboard/WomwnHealth/MenopauseSupportPage';
 import GynecologyPage from './Dashboard/WomwnHealth/GynecologyPage';
-import DietPlansPage from './Dashboard/Nutrition/DietPlansPage';
-import NutritionGuidancePage from './Dashboard/Nutrition/NutritionGuidancePage';
-import SupplementsPage from './Dashboard/Nutrition/SupplementsPage';
 import Consultation from './Dashboard/Blood/consultation';
+import Chat from './Dashboard/Dash/Charts';
+import PatentList from './Dashboard/Dash/PatentList';
+import CheckupRequests from './Dashboard/Dash/Checkuprequest';
+import AppointmentList from './Dashboard/Dash/AppointmentList';
+import MedicalReportPage from './Dashboard/Dash/MedicalReportPage';
+import DoctorPage from './Dashboard/Dash/DoctorPage';
+import ServicePage from './Dashboard/Dash/ServicePage';
 
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -130,9 +134,13 @@ const App: React.FC = () => {
                     <Route path="prenatal-care" element={<PrenatalCarePage />} />
                     <Route path="menopause-support" element={<MenopauseSupportPage />} />
                     <Route path="gynecology" element={<GynecologyPage />} />
-                    <Route path="diet-plans" element={<DietPlansPage />} />
-                    <Route path="nutrition-guidance" element={<NutritionGuidancePage />} />
-                    <Route path="supplements" element={<SupplementsPage />} />
+                    <Route path="home" element={<Chat />} />
+                    <Route path="patient-list" element={<PatentList />} />
+                    <Route path="checkup-request" element={<CheckupRequests />} />
+                    <Route path="appointment-list" element={<AppointmentList />} />
+                    <Route path="medical-records" element={<MedicalReportPage />} />
+                    <Route path="doctors" element={<DoctorPage/>} />
+                    <Route path="services" element={<ServicePage/>} />
                   </Route>
                 </Route>
               </Routes>

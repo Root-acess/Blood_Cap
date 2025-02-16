@@ -1,278 +1,170 @@
 import React, { useState } from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, NavLink, useLocation } from 'react-router-dom';
+import {
+    FaRegUser,
+    FaRegCalendarAlt,
+    FaClipboardList,
+    FaBars,
+    FaTimes,
+    FaSearch,
+    FaUserCircle,
+    FaCog,
+    FaSignOutAlt,
+    FaBell,
+    FaComments,
+    FaUserMd,
+    FaStethoscope,
+    FaFileMedical,
+} from 'react-icons/fa';
+import ProfilePicture from '../assets/team-2-800x800.jpg';
 
 const Dashboard: React.FC = () => {
     const navigate = useNavigate();
-    const [isBloodSectionOpen, setIsBloodSectionOpen] = useState(false);
-    const [isCheckupSectionOpen, setIsCheckupSectionOpen] = useState(false);
-    const [isHealthSupportSectionOpen, setIsHealthSupportSectionOpen] = useState(false);
-
-    const [isMentalHealthOpen, setIsMentalHealthOpen] = useState(false);
-    const [isWomenHealthOpen, setIsWomenHealthOpen] = useState(false);
-    const [isNutritionOpen, setIsNutritionOpen] = useState(false);
+    const location = useLocation().pathname;
+    const [showSidebar, setShowSidebar] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showSearch, setShowSearch] = useState(false);
 
     const handleSignOut = () => {
-        const token = localStorage.getItem('authToken');
-        const user = localStorage.getItem('authUser');
-
-        if (token || user) {
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('authUser');
-        }
-        navigate("/signin");
-    };
-
-    const handleNavigation = (path: string) => {
-        navigate(path);
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('authUser');
+        navigate('/signin');
     };
 
     return (
         <div className="flex min-h-screen bg-gray-100">
             {/* Sidebar */}
-            <div className="w-64 bg-red-600 text-white flex flex-col">
-                <div className="text-center py-6 font-bold text-2xl" aria-label="Application Title">
-                Care Connect 
-                </div>
-                <nav className="mt-4 flex-grow" aria-label="Dashboard Navigation">
-                    {/* Blood Section */}
+            <div className={`fixed top-0 left-0 h-full w-64 bg-blue-700 text-white transform ${showSidebar ? 'translate-x-0' : '-translate-x-64'} transition-transform duration-300 md:translate-x-0 flex flex-col z-50`}>
+                {/* Close Button for Mobile */}
+                <button
+                    className="md:hidden absolute top-4 right-4 text-white text-2xl focus:outline-none"
+                    onClick={() => setShowSidebar(false)}
+                >
+                    <FaTimes />
+                </button>
+                <div className="text-center py-6 font-bold text-2xl">Care Connect</div>
+                <nav className="flex-grow overflow-y-auto">
                     <div className="mb-4">
-                        <div
-                            className="flex items-center justify-between px-6 py-2 font-semibold text-lg border-b border-red-500 cursor-pointer"
-                            onClick={() => setIsBloodSectionOpen(!isBloodSectionOpen)}
-                        >
-                            <span>Blood Section</span>
-                            <i
-                                className={`fa ${isBloodSectionOpen ? 'fa-chevron-down' : 'fa-chevron-right'
-                                    } transition-transform duration-300`}
-                                aria-hidden="true"
-                            ></i>
+                        <div className="mt-2 space-y-1">
+                            <NavLink to="/dashboard/home" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaRegUser className="mr-2" />
+                                Dashboard
+                            </NavLink>
+                            <NavLink to="/dashboard/patient-list" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaClipboardList className="mr-2" />
+                                Patient List
+                            </NavLink>
+                            <NavLink to="/dashboard/checkup-request" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaRegCalendarAlt className="mr-2" />
+                                Checkup Request
+                            </NavLink>
+                            <NavLink to="/dashboard/appointment-list" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaClipboardList className="mr-2" />
+                                Appointment List
+                            </NavLink>
+                            <NavLink to="/dashboard/medical-records" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaFileMedical className="mr-2" />
+                                Medical Records
+                            </NavLink>
+                            <NavLink to="/dashboard/doctors" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaUserMd className="mr-2" />
+                                Doctors
+                            </NavLink>
+                            <NavLink to="/dashboard/services" className="block px-6 py-3 hover:bg-blue-600 flex items-center">
+                                <FaStethoscope className="mr-2" />
+                                Services
+                            </NavLink>
                         </div>
-                        {isBloodSectionOpen && (
-                            <div className="mt-2">
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/registration")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="New Register"
-                                >
-                                    New Register
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/donate")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Donate Blood"
-                                >
-                                    Donate Blood
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/requests")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Blood Requests"
-                                >
-                                    Blood Requests
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/donors")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Donor List"
-                                >
-                                    Donor List
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/events")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Events"
-                                >
-                                    Events
-                                </button>
-                            </div>
-                        )}
                     </div>
-
-                    {/* Home Checkup Section */}
-                    <div className="mb-4">
-                        <div
-                            className="flex items-center justify-between px-6 py-2 font-semibold text-lg border-b border-red-500 cursor-pointer"
-                            onClick={() => setIsCheckupSectionOpen(!isCheckupSectionOpen)}
-                        >
-                            <span>Home Checkup</span>
-                            <i
-                                className={`fa ${isCheckupSectionOpen ? 'fa-chevron-down' : 'fa-chevron-right'
-                                    } transition-transform duration-300`}
-                                aria-hidden="true"
-                            ></i>
-                        </div>
-                        {isCheckupSectionOpen && (
-                            <div className="mt-2">
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/schedule-checkup")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Schedule Checkup"
-                                >
-                                    Schedule Checkup
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/view-results")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="View Results"
-                                >
-                                    View Results
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/request-services")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Request Services"
-                                >
-                                    Request Services
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/consultation")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Consultation"
-                                >
-                                    Consultation
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Mental Health Support */}
-                    <div className="mb-4">
-                        <div
-                            className="flex items-center justify-between px-6 py-2 font-semibold text-lg border-b border-red-500 cursor-pointer"
-                            onClick={() => setIsMentalHealthOpen(!isMentalHealthOpen)}
-                        >
-                            <span>Mental Health Support</span>
-                            <i
-                                className={`fa ${isMentalHealthOpen ? 'fa-chevron-down' : 'fa-chevron-right'
-                                    }`}
-                                aria-hidden="true"
-                            ></i>
-                        </div>
-                        {isMentalHealthOpen && (
-                            <div className="ml-6 mt-2">
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/therapy-sessions")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Therapy Sessions"
-                                >
-                                    Therapy Sessions
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/counseling")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Counseling"
-                                >
-                                    Counseling
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/stress-management")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Stress Management"
-                                >
-                                    Stress Management
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Women Health */}
-                    <div className="mb-4">
-                        <div
-                            className="flex items-center justify-between px-6 py-2 font-semibold text-lg border-b border-red-500 cursor-pointer"
-                            onClick={() => setIsWomenHealthOpen(!isWomenHealthOpen)}
-                        >
-                            <span>Women Health</span>
-                            <i
-                                className={`fa ${isWomenHealthOpen ? 'fa-chevron-down' : 'fa-chevron-right'
-                                    }`}
-                                aria-hidden="true"
-                            ></i>
-                        </div>
-                        {isWomenHealthOpen && (
-                            <div className="ml-6 mt-2">
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/prenatal-care")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Prenatal Care"
-                                >
-                                    Prenatal Care
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/menopause-support")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Menopause Support"
-                                >
-                                    Menopause Support
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/gynecology")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Gynecology"
-                                >
-                                    Gynecology
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Nutrition */}
-                    <div className="mb-4">
-                        <div
-                            className="flex items-center justify-between px-6 py-2 font-semibold text-lg border-b border-red-500 cursor-pointer"
-                            onClick={() => setIsNutritionOpen(!isNutritionOpen)}
-                        >
-                            <span>Nutrition</span>
-                            <i
-                                className={`fa ${isNutritionOpen ? 'fa-chevron-down' : 'fa-chevron-right'
-                                    }`}
-                                aria-hidden="true"
-                            ></i>
-                        </div>
-                        {isNutritionOpen && (
-                            <div className="ml-6 mt-2">
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/diet-plans")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Diet Plans"
-                                >
-                                    Diet Plans
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/nutrition-guidance")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Nutrition Guidance"
-                                >
-                                    Nutrition Guidance
-                                </button>
-                                <button
-                                    onClick={() => handleNavigation("/dashboard/supplements")}
-                                    className="block w-full text-left py-3 px-6 hover:bg-red-500 transition-colors duration-300"
-                                    aria-label="Supplements"
-                                >
-                                    Supplements
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
                 </nav>
                 <div className="mt-auto p-4">
-                    <button
-                        onClick={handleSignOut}
-                        className="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
-                        aria-label="Sign Out"
-                    >
+                    <button onClick={handleSignOut} className="w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded">
                         Sign Out
                     </button>
                 </div>
             </div>
 
-            {/* Main content area */}
-            <div className="flex-1 p-6 bg-white overflow-auto">
-                <Outlet />
+            {/* Main Content Area */}
+            <div className="flex-1 ml-0 md:ml-64 transition-all duration-300 flex flex-col h-screen">
+                {/* Admin Navbar */}
+                <nav className="bg-blue-700 py-4 px-6 shadow-md flex justify-between items-center">
+                    <button className="md:hidden p-2 text-white" onClick={() => setShowSidebar(!showSidebar)}>
+                        <FaBars className="text-2xl" />
+                    </button>
+                    <div className="flex items-center space-x-4">
+                        <div className="bg-white p-2 rounded-md flex items-center space-x-2">
+                            <i className="fas fa-home text-blue-600"></i>
+                            <span className="text-blue-600">{`/ ${location.split('/').filter(Boolean).join(' / ')}`}</span>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center space-x-4 md:space-x-6">
+                        {/* Search Bar for Desktop & Button for Mobile */}
+                        <div className="relative">
+                            <button className="md:hidden text-white text-xl p-2" onClick={() => setShowSearch(!showSearch)}>
+                                <FaSearch />
+                            </button>
+                            {showSearch && (
+                                <div className="absolute top-10 right-0 bg-white p-2 rounded-lg shadow-lg">
+                                    <input
+                                        type="text"
+                                        placeholder="Search"
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="pl-4 pr-2 py-1 rounded-lg border border-gray-300 focus:outline-none"
+                                    />
+                                </div>
+                            )}
+                            <div className="hidden md:block relative w-48 md:w-64">
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-blue-600 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                                <FaSearch className="absolute left-3 top-3 text-white" />
+                            </div>
+                        </div>
+                        {/* Notification & Chat */}
+                        <button className="text-white text-xl p-2">
+                            <FaBell />
+                        </button>
+                        <button className="text-white text-xl p-2">
+                            <FaComments />
+                        </button>
+                        {/* User Dropdown */}
+                        <div className="relative">
+                            <button className="w-10 h-10 rounded-full focus:outline-none" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                                <img src={ProfilePicture} alt="Profile" className="w-full h-full object-cover rounded-full" />
+                            </button>
+                            {isDropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+                                    <button className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-blue-100">
+                                        <FaUserCircle className="mr-2" />
+                                        Profile
+                                    </button>
+                                    <button className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-blue-100">
+                                        <FaCog className="mr-2" />
+                                        Settings
+                                    </button>
+                                    <button onClick={handleSignOut} className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-blue-100">
+                                        <FaSignOutAlt className="mr-2" />
+                                        Sign Out
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </nav>
+
+                {/* Fixed Content Wrapper */}
+                <div className="flex-1 overflow-y-auto">
+                    <Outlet />
+                </div>
             </div>
         </div>
     );
 };
-
 export default Dashboard;
