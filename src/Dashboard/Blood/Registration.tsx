@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../firebase'; // Import Firestore
+import { db } from '../../firebase'; // Import Firestore
 import { collection, addDoc } from 'firebase/firestore';
 
 const Registration: React.FC = () => {
@@ -13,7 +13,6 @@ const Registration: React.FC = () => {
     const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
 
-    // Function to get user's location
     const getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -48,7 +47,7 @@ const Registration: React.FC = () => {
 
             // Redirect or show success message
             console.log('Registration successful');
-            navigate('dashboard/thank-you'); // Navigate to a thank you page or dashboard
+            navigate('dashboard/thank-you');
         } catch (error) {
             setError('An error occurred while registering. Please try again.');
             console.error('Registration error:', error);
@@ -58,11 +57,19 @@ const Registration: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen ">
-            <div className="border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-900 dark:border-neutral-700 w-full max-w-md mx-4 bg-transparent">
+        <div
+            className="flex items-center justify-center min-h-screen bg-cover bg-center"
+            style={{
+                backgroundImage: "url('https://images.healthshots.com/healthshots/en/uploads/2023/10/12155254/medical-tourism-1600x900.jpg')",
+            }}
+        >
+            <div className="border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-900 dark:border-neutral-700 w-full max-w-md mx-4 bg-opacity-80 backdrop-blur-md">
                 <div className="p-6">
                     <div className="text-center">
-                        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Request For Blood</h1>
+                        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Request For Blood</h1>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                            Help save lives by providing critical information.
+                        </p>
                         {error && <p className="text-xs text-red-600 mt-2">{error}</p>}
                     </div>
 

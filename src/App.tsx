@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import HomePage from './Pages/Hero';
+import Hero from './Pages/Hero';
 import Feature from './Pages/Feature';
 import Footer from './Components/Footer';
 import StarCard from './Components/StarCard';
@@ -11,19 +11,18 @@ import Gallery from './Pages/Gallery';
 import Signup from './Auth/Signup';
 import Signin from './Auth/Signin';
 import Dashboard from './Pages/Dashboard';
-import DonateBlood from './Dashboard/DonateBlood';
-import BloodRequests from './Dashboard/BloodRequests';
-import DonorList from './Dashboard/DonorList';
+import DonateBlood from './Dashboard/Blood/DonateBlood';
+import BloodRequests from './Dashboard/Blood/BloodRequests';
+import DonorList from './Dashboard/Blood/DonorList';
 import Profile from './Dashboard/Profile';
 import PrivateRoute from './Components/PrivateRoute';
 import { AuthProvider } from './AuthContext';
-import Registration from './Dashboard/Registration';
-import BloodDonationEvents from './Dashboard/Events';
+import Registration from './Dashboard/Blood/Registration';
+import BloodDonationEvents from './Dashboard/Blood/Events';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import ScheduleCheckup from './Dashboard/ScheduleCheckup';
 import ResultPage from './Dashboard/ResultPage';
 import RequestServices from './Dashboard/RequestService';
-import Consultation from './Dashboard/consultation';
 import TherapySessions from './Dashboard/MentalHealthSupport/TherapySessions';
 import CounselingPage from './Dashboard/MentalHealthSupport/CounselingPage';
 import StressManagementPage from './Dashboard/MentalHealthSupport/StressManagementPage';
@@ -33,6 +32,7 @@ import GynecologyPage from './Dashboard/WomwnHealth/GynecologyPage';
 import DietPlansPage from './Dashboard/Nutrition/DietPlansPage';
 import NutritionGuidancePage from './Dashboard/Nutrition/NutritionGuidancePage';
 import SupplementsPage from './Dashboard/Nutrition/SupplementsPage';
+import Consultation from './Dashboard/Blood/consultation';
 
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -86,7 +86,7 @@ const App: React.FC = () => {
                 <Route path="/" element={
                   <>
                     <section id="home">
-                      <HomePage />
+                      <Hero />
                     </section>
                     <section id="feature">
                       <Feature />

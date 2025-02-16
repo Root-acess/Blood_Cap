@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { db } from '../firebase'; // Adjust the path as necessary
+import { db } from '../../firebase'; // Adjust the path as necessary
 import { collection, getDocs } from 'firebase/firestore';
 
 interface Donor {
